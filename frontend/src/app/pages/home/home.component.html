@@ -1,25 +1,43 @@
 <div class="d-flex align-items-center">
   <div class="mx-auto my-auto">
     <p class="h5 text-center mb-3">New Post</p>
-      <form>
+
+    <div *ngIf="published$ | async" class="alert alert-success alert-dismissible fade show">
+      <span>Post published!</span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="close()"></button>
+    </div>
+
+    <div *ngIf="error$ | async" class="alert alert-danger alert-dismissible fade show">
+      <span>Fail to publish, please try again.</span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="close()"></button>
+    </div>
+
+      <form [formGroup]="post" (ngSubmit)="publish()">
         <div class="mb-3">
           <label class="form-label">Author</label>
-          <input class="form-control" type="text">
+          <input class="form-control" type="text" formControlName="author">
          </div>
 
         <div class="mb-3">
           <label class="form-label">Title</label>
-          <input class="form-control" type="text">
+          <input class="form-control" type="text" formControlName="title">
         </div>
 
         <div class="mb-3">
           <label class="form-label">Text</label>
-          <textarea class="form-control" type="text" rows="8"></textarea>
+          <textarea class="form-control" type="text" rows="8" formControlName="text"></textarea>
         </div>
 
-        <div class="col-lg-12" style="text-align: center;">
-          <button class="btn btn-primary" type="submit">Publish</button>
+        <div *ngIf="!(publishing$ | async)" class="col-lg-12" style="text-align: center;">
+          <button class="btn btn-primary" type="submit" [disabled]="post.invalid">Publish</button>
         </div>
       </form>
+
+      <div *ngIf="publishing$ | async" class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Publishing...</span>
+        </div>
+      </div>
+
   </div>
 </div>

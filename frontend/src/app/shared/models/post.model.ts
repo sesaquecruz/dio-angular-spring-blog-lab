@@ -1,10 +1,4 @@
-export interface PostRequest {
-  author: string,
-  title: string,
-  text: string
-}
-
-export interface PostResponse {
+export interface Post {
   id: string,
   date: string,
   author: string,
