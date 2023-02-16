@@ -5,15 +5,15 @@ export const selectHomeState = createFeatureSelector<HomeState>('home');
 
 export const selectPublishing = createSelector(
   selectHomeState,
-  (homeState: HomeState) => homeState.publishing
+  (state: HomeState) => state.publishing
 )
 
 export const selectPublished = createSelector(
   selectHomeState,
-  (homeState: HomeState) => homeState.published
+  (state: HomeState) => state.published
 )
 
 export const selectError = createSelector(
   selectHomeState,
-  (homeState: HomeState) => homeState.error
+  (state: HomeState) => state.error
 )

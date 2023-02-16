@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Post } from '../models/post.model';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class ApiService {
       page: 1,
       limit: 50
     }})
-    return this.http.get<Post[]>(this.url, {params});
+    return this.http.get<{itens: Post[]}>(this.url, {params}).pipe(map(values => values.itens));
   }
 
   createPost(author: string, title: string, text: string): Observable<Post> {

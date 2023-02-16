@@ -4,19 +4,19 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, mergeMap } from "rxjs";
 import { ApiService } from "src/app/shared/services/api.service";
 import { Post } from "src/app/shared/models/post.model";
-import * as fromHomeActions from './home.actions';
+import * as fromFeedActions from './feed.actions';
 
 @Injectable()
-export class HomeEffects {
-  createPost$ = createEffect(() => this.actions$
+export class FeedEffects {
+  loadPosts$ = createEffect(() => this.actions$
     .pipe(
-      ofType(fromHomeActions.createPost),
-      mergeMap(({author, title, text}) => this.api.createPost(author, title, text)),
+      ofType(fromFeedActions.loadPosts),
+      mergeMap(() => this.api.getPosts()),
       catchError((err, caught$) => {
-        this.store.dispatch(fromHomeActions.createPostFail());
+        this.store.dispatch(fromFeedActions.loadPostsFail());
         return caught$;
       }),
-      map((post: Post) => fromHomeActions.createPostSuccess(post))
+      map((posts: Post[]) => fromFeedActions.loadPostsSuccess({posts}))
     )
   );
 
