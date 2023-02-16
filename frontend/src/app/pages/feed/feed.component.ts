@@ -1,31 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { PostResponse } from 'src/app/shared/models/post.model';
+import { Post } from 'src/app/shared/models/post.model';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss']
 })
-export class FeedComponent {
-  posts: PostResponse[] = []
+export class FeedComponent implements OnInit{
+  posts: Post[] = []
   loading: boolean = false
 
-  constructor() {
-    this.posts = [
-      {
-        id: "",
-        author: "author 1",
-        title: "title 1",
-        text: "text 1",
-        date: "date 1"
-      },
-      {
-        id: "",
-        author: "author 2",
-        title: "title 2",
-        text: "text 2",
-        date: "date 2"
-      }
-    ]
+  constructor(private api: ApiService) { }
+
+  ngOnInit(): void {
+      this.api.getPosts().subscribe((data: Post[]) => console.log(data));
   }
 }

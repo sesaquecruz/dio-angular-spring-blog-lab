@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FeedComponent } from './feed.component';
 import { RouterModule, Routes } from '@angular/router';
+import { FeedComponent } from './feed.component';
 import { PostComponent } from 'src/app/shared/components/post/post.component';
 
 const routes: Routes = [
