@@ -1,0 +1,22 @@
+<div class="d-flex align-items-center">
+  <div class="mx-auto my-auto">
+
+    <div *ngIf="!loading">
+      <app-post *ngFor="let post of posts"
+        author="{{post.author}}"
+        title="{{post.title}}"
+        text="{{post.text}}"
+        date="{{post.date}}"
+      >
+      </app-post>
+    </div>
+
+    <div *ngIf="loading" class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+  </div>
+
+  </div>
+
+</div>
